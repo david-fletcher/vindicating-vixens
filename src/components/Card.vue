@@ -1,6 +1,8 @@
 <template>
   <v-card tile>
-    <v-img src="https://www.futurity.org/wp/wp-content/uploads/2018/04/pink-flowers-against-green_1600.jpg" />
+    <v-img :src="require(`@/assets/${image}`)" 
+            contain
+    />
     <v-card-title primary-title>
       <h3 class="display-2">{{ title }}</h3>
     </v-card-title>
@@ -24,6 +26,10 @@ export default {
     text: {
       type: String,
       required: false
+    },
+    image: {
+      type: String,
+      required: true
     }
   },
   data () {

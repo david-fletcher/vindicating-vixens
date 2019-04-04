@@ -11,36 +11,44 @@
           </v-layout>
         </v-container>
       </v-jumbotron>
-      <!-- <v-flex xs12 md6 lg3>
-        <Card v-bind:title="'Martha'" v-bind:text="'Martha was a sweet woman who did not want to harm anyone.'"/>
-        <Card v-bind:title="'Martha'" v-bind:text="'Martha was a sweet woman who did not want to harm anyone.'"/>
-        <Card v-bind:title="'Martha'" v-bind:text="'Martha was a sweet woman who did not want to harm anyone.'"/>
-      </v-flex> -->
       <v-flex
               xs12
               md6
               lg3
-              v-for="n in 12"
-              :key="n"
+              v-for="item in vixens"
+              :key="item.id"
             >
-              <Card v-bind:title="'Martha'" v-bind:text="'Martha was a sweet woman who did not want to harm anyone.'"/>
-            </v-flex>
+              <Card v-bind:title="item.name" 
+                    v-bind:text="item.short_desc"
+                    v-bind:image="item.image"/>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
 import Card from './Card';
+import axios from 'axios';
 
 export default {
   name: 'Home',
   components: {
     Card
   },
-  data () {
+  data() {
     return {
-      //
+      vixens: []
     }
+  },
+  mounted() {
+    axios.get('http://localhost:5000/vixens')
+      .then(res => {
+        this.vixens = res.data;
+        console.log(this.vixens);
+      })
+      .catch(err => {
+        console.log("ERROR RETRIEVING VIXENS", err.response);
+      });
   }
 }
 </script>
