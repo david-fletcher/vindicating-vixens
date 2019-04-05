@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, g, request
 from flask_cors import CORS
+import os, os.path
 
 import db
 
@@ -13,6 +14,9 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app)
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+IMAGE_DIR = os.path.join(BASE_DIR, 'src/assets/')
+
 # database connection teardown
 @app.teardown_appcontext
 def close_connection(exception):
@@ -20,15 +24,7 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-# sanity check route
-@app.route('/ping', methods=['GET'])
-def ping_pong():
-    return jsonify('pong!')
-
-@app.route('/pong', methods=['GET'])
-def pong_ping():
-    return jsonify('ping!')
-
+# vixen CRUD
 @app.route('/vixens', methods=['GET'])
 def get_vixens():
     results = db.query_db('select * from vixens')
@@ -42,6 +38,20 @@ def get_vixens():
             'image': v['image']
         })
     return jsonify(vixens)
+
+@app.route('/vixens/<vid>', methods=['GET'])
+def get_vixen(vid):
+    result = db.query_db('select * from vixens where id = ?', (vid), one=True)
+    if result:
+        return jsonify({
+            'id': result['id'],
+            'name': result['name'],
+            'short_desc': result['short_desc'],
+            'long_desc': result['long_desc'],
+            'image': result['image']
+        })
+    else:
+        return 'vixen not found', 404
 
 @app.route('/vixens', methods=['POST'])
 def create_vixen():
@@ -62,6 +72,45 @@ def delete_vixen(vid):
     args = (vid)
     result = db.update_db('delete from vixens where id = ?', args)
     return jsonify({'id': result})
+
+@app.route('/images', methods=['POST'])
+def save_image():
+    if request.files:
+        if request.files['file']:
+            image = request.files['file']
+        else:
+            return 'no image selected', 422
+    else:
+        return 'no files received', 422
+
+    IMAGE_PATH = os.path.join(IMAGE_DIR, image.filename)
+    if not file_exists(image.filename, IMAGE_DIR):
+        image.save(IMAGE_PATH)
+    else:
+        return 'image already exists', 422
+    return jsonify(image.filename)
+
+@app.route('/images/<filename>', methods=['DELETE'])
+def delete_image(filename):
+    if(filename):
+        IMAGE_PATH = os.path.join(IMAGE_DIR, filename)
+
+        if file_exists(filename, IMAGE_DIR):
+            os.remove(IMAGE_PATH)
+        else:
+            return 'file not found', 404
+
+    return jsonify({ 'message': 'deleted'})
+
+
+def file_exists(filename, dir):
+    file_exists = False
+    for root, dirs, files in os.walk(dir):
+        for fname in files:
+            if(fname == filename):
+                file_exists = True
+                break
+    return file_exists
 
 if __name__ == '__main__':
     app.run()

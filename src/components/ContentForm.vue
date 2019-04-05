@@ -9,7 +9,10 @@
           <v-text-field :label="'Name'" v-model="name"></v-text-field>
           <v-textarea :label="'Short Description'" v-model="short_desc"></v-textarea>
           <v-textarea :label="'Long Description'" v-model="long_desc"></v-textarea>
-          <v-text-field :label="'Image'" v-model="image"></v-text-field>
+          <v-text-field :label="'Image'" v-model="image" readonly @click="chooseImage"></v-text-field>
+          <form method="POST" ref="image_form">
+            <input type="file" ref="file" name="file" @change="uploadImage" hidden/>
+          </form>
         </v-card-text>
       </v-flex>
       <v-divider></v-divider>
@@ -71,6 +74,24 @@
         this.image = "";
       },
 
+      chooseImage() {
+        this.$refs.file.click();
+      },
+
+      uploadImage($event) {
+        const files = $event.target.files;
+        if(files.length > 0) {
+          const form = new FormData(this.$refs.image_form);
+          axios.post('http://localhost:5000/images', form)
+            .then(res => {
+              this.image = files[0].name;
+            })
+            .catch(err => {
+              console.error('ERROR SAVING IMAGE', err.response)
+            });
+        }
+      },
+
       cancelDialog() {
         this.clear();
         this.$emit('cancel');
@@ -83,20 +104,18 @@
             .then(res => {
               this.clear();
               this.$emit('save');
-              console.log(res);
             })
             .catch(err => {
-              console.log("ERROR PUTTING VIXEN", err.response);
+              console.error("ERROR PUTTING VIXEN", err.response);
             });
         } else {
           axios.post('http://localhost:5000/vixens', args)
             .then(res => {
               this.clear();
               this.$emit('save');
-              console.log(res);
             })
             .catch(err => {
-              console.log("ERROR POSTING VIXEN", err.response);
+              console.error("ERROR POSTING VIXEN", err.response);
             });
         }
       }

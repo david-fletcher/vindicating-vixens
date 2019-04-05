@@ -115,17 +115,40 @@
         this.confirmDialog.show = true;
       },
 
-      deleteVixen() {
-        axios.delete(`http://localhost:5000/vixens/${this.confirmDialog.id}`)
-          .then(res => {
-            this.confirmDialog.show = false;
-            this.confirmDialog.id = -1;
-            this.refreshData();
-            console.log(res);
-          })
-          .catch(err => {
-            console.log("ERROR DELETING VIXEN", err.response);
-          });
+      async deleteVixen() {
+        if(await this.deleteImage(this.confirmDialog.id)) {
+          axios.delete(`http://localhost:5000/vixens/${this.confirmDialog.id}`)
+            .then(res => {
+              this.confirmDialog.show = false;
+              this.confirmDialog.id = -1;
+              this.refreshData();
+            })
+            .catch(err => {
+              console.error("ERROR DELETING VIXEN", err.response);
+            });
+        } else {
+          console.error("ABORTING");
+        }
+      },
+      
+      async deleteImage(id) {
+        const response = await axios.get(`http://localhost:5000/vixens/${id}`);
+        const vixen = response.data;
+        let success = false;
+        if(vixen['name']) {
+          success = axios.delete(`http://localhost:5000/images/${vixen.image}`)
+            .then(res => {
+              console.log('IMAGE DELETED');
+              return true;
+            })
+            .catch(err => {
+              console.error('ERROR DELETING IMAGE', err.response)
+              return false;
+            });
+        } else {
+          console.error("IMAGE RETRIEVAL FAILED", vixen);
+        }
+        return success;
       },
 
       cancelDelete() {
@@ -148,7 +171,7 @@
             this.vixens = res.data;
           })
           .catch(err => {
-            console.log("ERROR FETCHING VIXENS", err.response);
+            console.error("ERROR FETCHING VIXENS", err.response);
           });
       }
     },
