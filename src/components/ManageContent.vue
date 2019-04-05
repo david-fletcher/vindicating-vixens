@@ -1,6 +1,12 @@
 <template>
   <v-container>
     <v-layout justify-center column>
+      <v-layout>
+        <router-link to="/" tag="span">
+          <v-btn color="primary" outline><v-icon small>arrow_back_ios</v-icon>Home</v-btn>
+        </router-link>
+        <v-spacer/>
+      </v-layout>
       <v-toolbar class="elevation-1">
         <v-toolbar-title>Vixens</v-toolbar-title>
         <v-btn color="primary" fab
@@ -118,7 +124,7 @@
       async deleteVixen() {
         if(await this.deleteImage(this.confirmDialog.id)) {
           axios.delete(`http://localhost:5000/vixens/${this.confirmDialog.id}`)
-            .then(res => {
+            .then(() => {
               this.confirmDialog.show = false;
               this.confirmDialog.id = -1;
               this.refreshData();
@@ -137,7 +143,7 @@
         let success = false;
         if(vixen['name']) {
           success = axios.delete(`http://localhost:5000/images/${vixen.image}`)
-            .then(res => {
+            .then(() => {
               console.log('IMAGE DELETED');
               return true;
             })

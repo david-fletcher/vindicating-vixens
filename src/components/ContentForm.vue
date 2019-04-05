@@ -6,10 +6,10 @@
       </v-flex>
       <v-flex>
         <v-card-text>
-          <v-text-field :label="'Name'" v-model="name"></v-text-field>
-          <v-textarea :label="'Short Description'" v-model="short_desc"></v-textarea>
-          <v-textarea :label="'Long Description'" v-model="long_desc"></v-textarea>
-          <v-text-field :label="'Image'" v-model="image" readonly @click="chooseImage"></v-text-field>
+          <v-text-field v-validate="'required'" :label="'Name'" v-model="name"></v-text-field>
+          <v-textarea v-validate="'required'" :label="'Short Description'" v-model="short_desc"></v-textarea>
+          <v-textarea v-validate="'required'" :label="'Long Description'" v-model="long_desc"></v-textarea>
+          <v-text-field v-validate="'required'" :label="'Image'" v-model="image" readonly @click="chooseImage"></v-text-field>
           <form method="POST" ref="image_form">
             <input type="file" ref="file" name="file" @change="uploadImage" hidden/>
           </form>
@@ -83,7 +83,7 @@
         if(files.length > 0) {
           const form = new FormData(this.$refs.image_form);
           axios.post('http://localhost:5000/images', form)
-            .then(res => {
+            .then(() => {
               this.image = files[0].name;
             })
             .catch(err => {
@@ -98,26 +98,33 @@
       },
 
       saveVixen() {
-        const args = { name: this.name, short_desc: this.short_desc, long_desc: this.long_desc, image: this.image };
-        if(this.editMode) {
-          axios.patch(`http://localhost:5000/vixens/${this.id}`, args)
-            .then(res => {
-              this.clear();
-              this.$emit('save');
-            })
-            .catch(err => {
-              console.error("ERROR PUTTING VIXEN", err.response);
-            });
-        } else {
-          axios.post('http://localhost:5000/vixens', args)
-            .then(res => {
-              this.clear();
-              this.$emit('save');
-            })
-            .catch(err => {
-              console.error("ERROR POSTING VIXEN", err.response);
-            });
-        }
+        this.$validator.validateAll().then(() => {
+          if(!this.errors.any()) {
+            const args = { name: this.name, 
+                           short_desc: this.short_desc, 
+                           long_desc: this.long_desc, 
+                           image: this.image };
+            if(this.editMode) {
+              axios.patch(`http://localhost:5000/vixens/${this.id}`, args)
+                .then(() => {
+                  this.clear();
+                  this.$emit('save');
+                })
+                .catch(err => {
+                  console.error("ERROR PUTTING VIXEN", err.response);
+                });
+            } else {
+              axios.post('http://localhost:5000/vixens', args)
+                .then(() => {
+                  this.clear();
+                  this.$emit('save');
+                })
+                .catch(err => {
+                  console.error("ERROR POSTING VIXEN", err.response);
+                });
+            }
+          }
+        });
       }
     }
   }
