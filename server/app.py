@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, g
+from flask import Flask, jsonify, g, request
 from flask_cors import CORS
 
 import db
@@ -42,6 +42,26 @@ def get_vixens():
             'image': v['image']
         })
     return jsonify(vixens)
+
+@app.route('/vixens', methods=['POST'])
+def create_vixen():
+    data = request.get_json(silent=True)
+    args = (data.get('name'), data.get('short_desc'), data.get('long_desc'), data.get('image'))
+    result = db.update_db('insert into vixens (name, short_desc, long_desc, image) values (?, ?, ?, ?)', args)
+    return jsonify({'id': result})
+
+@app.route('/vixens/<vid>', methods=['PATCH'])
+def update_vixen(vid):
+    data = request.get_json(silent=True)
+    args = (data.get('name'), data.get('short_desc'), data.get('long_desc'), data.get('image'), vid)
+    result = db.update_db('update vixens set name = ?, short_desc = ?, long_desc = ?, image = ? where id = ?', args)
+    return jsonify({'id': result})
+
+@app.route('/vixens/<vid>', methods=['DELETE'])
+def delete_vixen(vid):
+    args = (vid)
+    result = db.update_db('delete from vixens where id = ?', args)
+    return jsonify({'id': result})
 
 if __name__ == '__main__':
     app.run()

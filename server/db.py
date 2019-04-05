@@ -17,3 +17,10 @@ def query_db(query, args=(), one=False):
   rv = cur.fetchall()
   cur.close()
   return (rv[0] if rv else None) if one else rv
+
+def update_db(query, args=()):
+  cur = get_db().execute(query, args)
+  rowid = cur.lastrowid
+  cur.close()
+  get_db().commit()
+  return rowid
