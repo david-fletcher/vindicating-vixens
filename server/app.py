@@ -73,6 +73,30 @@ def delete_vixen(vid):
     result = db.update_db('delete from vixens where id = ?', args)
     return jsonify({'id': result})
 
+# image CRUD
+@app.route('/images', methods=['GET'])
+def get_images():
+    images = []
+    reserved = []
+    result = db.query_db('select image from vixens')
+    for r in result:
+        reserved.append(r['image'])
+
+    for root, dirs, files in os.walk(IMAGE_DIR):
+        for fname in files:
+            if fname in reserved:
+                images.append({
+                    'image': fname,
+                    'allowed': False
+                })
+            else:
+                images.append({
+                    'image': fname,
+                    'allowed': True
+                })
+
+    return jsonify(images)
+
 @app.route('/images', methods=['POST'])
 def save_image():
     if request.files:
