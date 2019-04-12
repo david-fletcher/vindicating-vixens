@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:5000/vixens')
+    axios.get(`${this.$base_url}/vixens`)
       .then(res => {
         this.vixens = res.data;
         console.log(this.vixens);

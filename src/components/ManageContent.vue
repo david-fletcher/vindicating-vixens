@@ -123,7 +123,7 @@
 
       async deleteVixen() {
         if(await this.deleteImage(this.confirmDialog.id)) {
-          axios.delete(`http://localhost:5000/vixens/${this.confirmDialog.id}`)
+          axios.delete(`${this.$base_url}/vixens/${this.confirmDialog.id}`)
             .then(() => {
               this.confirmDialog.show = false;
               this.confirmDialog.id = -1;
@@ -138,11 +138,11 @@
       },
       
       async deleteImage(id) {
-        const response = await axios.get(`http://localhost:5000/vixens/${id}`);
+        const response = await axios.get(`${this.$base_url}/vixens/${id}`);
         const vixen = response.data;
         let success = false;
         if(vixen['name']) {
-          success = axios.delete(`http://localhost:5000/images/${vixen.image}`)
+          success = axios.delete(`${this.$base_url}/images/${vixen.image}`)
             .then(() => {
               console.log('IMAGE DELETED');
               return true;
@@ -172,7 +172,7 @@
       },
 
       refreshData() {
-        axios.get('http://localhost:5000/vixens')
+        axios.get(`${this.$base_url}/vixens`)
           .then(res => {
             this.vixens = res.data;
           })

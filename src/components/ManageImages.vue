@@ -5,15 +5,17 @@
         <v-btn color="primary" outline><v-icon small>arrow_back_ios</v-icon>Home</v-btn>
       </router-link>
       <h3 v-if="images.length < 1">No images to display.</h3>
-      <v-flex
-              xs12
-              md6
-              lg3
-              v-for="item in images"
-              :key="item.image"
-            >
-              <ImageCard v-bind:image="item.image" v-bind:isallowed="item.allowed" v-on:delete="deleteImage"/>
-      </v-flex>
+      <v-hover>
+        <v-flex
+                xs12
+                md6
+                lg3
+                v-for="item in images"
+                :key="item.image"
+              >
+                <ImageCard v-bind:image="item.image" v-bind:isallowed="item.allowed" v-on:delete="deleteImage"/>
+        </v-flex>
+      </v-hover>
     </v-layout>
   </v-container>
 </template>
@@ -34,7 +36,7 @@ export default {
   },
   methods: {
     refreshImages() {
-      axios.get('http://localhost:5000/images')
+      axios.get(`${this.$base_url}/images`)
         .then(res => {
           this.images = res.data;
           console.log(res.data);
@@ -45,7 +47,7 @@ export default {
     },
 
     deleteImage(image) {
-      axios.delete(`http://localhost:5000/images/${image}`)
+      axios.delete(`${this.$base_url}/images/${image}`)
         .then(res => {
           console.log("IMAGE DELETED");
           this.refreshImages();

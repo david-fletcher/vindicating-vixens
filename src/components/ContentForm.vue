@@ -82,7 +82,7 @@
         const files = $event.target.files;
         if(files.length > 0) {
           const form = new FormData(this.$refs.image_form);
-          axios.post('http://localhost:5000/images', form)
+          axios.post(`${this.$base_url}/images`, form)
             .then(() => {
               this.image = files[0].name;
             })
@@ -105,7 +105,7 @@
                            long_desc: this.long_desc, 
                            image: this.image };
             if(this.editMode) {
-              axios.patch(`http://localhost:5000/vixens/${this.id}`, args)
+              axios.patch(`${this.$base_url}/vixens/${this.id}`, args)
                 .then(() => {
                   this.clear();
                   this.$emit('save');
@@ -114,7 +114,7 @@
                   console.error("ERROR PUTTING VIXEN", err.response);
                 });
             } else {
-              axios.post('http://localhost:5000/vixens', args)
+              axios.post(`${this.$base_url}/vixens`, args)
                 .then(() => {
                   this.clear();
                   this.$emit('save');
