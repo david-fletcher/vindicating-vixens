@@ -1,15 +1,19 @@
 <template>
-  <v-card tile>
-    <v-img :src="require(`@/assets/${image}`)" 
-            contain
-    />
-    <v-card-title primary-title>
-      {{ image }}
-    </v-card-title>
-    <v-card-actions>
-      <v-btn color="primary" flat @click="deleteImage" :disabled="!isallowed">Delete</v-btn>
-    </v-card-actions>
-  </v-card>
+  <v-hover>
+    <v-card tile slot-scope="{ hover }"
+      :class="`elevation-${hover ? 12 : 2}`"
+    >
+      <v-img :src="require(`@/assets/${image}`)" 
+              contain
+      />
+      <v-card-title primary-title>
+        {{ image }}
+      </v-card-title>
+      <v-card-actions>
+        <v-btn color="primary" flat @click="deleteImage" :disabled="!isallowed">Delete</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-hover>
 </template>
 
 <script>

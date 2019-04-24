@@ -1,12 +1,6 @@
 <template>
   <v-container>
     <v-layout justify-center column>
-      <v-layout>
-        <router-link to="/" tag="span">
-          <v-btn color="primary" outline><v-icon small>arrow_back_ios</v-icon>Home</v-btn>
-        </router-link>
-        <v-spacer/>
-      </v-layout>
       <v-toolbar class="elevation-1">
         <v-toolbar-title>Vixens</v-toolbar-title>
         <v-btn color="primary" fab

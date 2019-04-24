@@ -2,7 +2,7 @@
   <v-card>
     <v-layout column>
       <v-flex>
-        <v-card-title class="headline">Create a Vixen!</v-card-title>
+        <v-card-title class="headline">{{ formTitle }}</v-card-title>
       </v-flex>
       <v-flex>
         <v-card-text>
@@ -63,6 +63,11 @@
           this.long_desc = vixen.long_desc;
           this.image = vixen.image;
         }
+      }
+    },
+    computed: {
+      formTitle() {
+        return this.$props.editMode ? `Editing ${this.name}:` : `Create a Vixen:`;
       }
     },
     methods: {

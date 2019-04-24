@@ -20,7 +20,9 @@
             >
               <Card v-bind:title="item.name" 
                     v-bind:text="item.short_desc"
-                    v-bind:image="item.image"/>
+                    v-bind:image="item.image"
+                    v-bind:id="item.id"
+              />
       </v-flex>
     </v-layout>
   </v-container>
@@ -44,7 +46,6 @@ export default {
     axios.get(`${this.$base_url}/vixens`)
       .then(res => {
         this.vixens = res.data;
-        console.log(this.vixens);
       })
       .catch(err => {
         console.log("ERROR RETRIEVING VIXENS", err.response);
