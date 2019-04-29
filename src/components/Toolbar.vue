@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-toolbar dark color="primary" @click="toggleNavDrawer">
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+    <v-toolbar dark color="primary">
+      <v-toolbar-side-icon @click="toggleNavDrawer"></v-toolbar-side-icon>
       <v-toolbar-title>Vindicating Vixens</v-toolbar-title>
     </v-toolbar>
     <Navigation ref="nav"/>

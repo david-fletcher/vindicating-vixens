@@ -45,7 +45,7 @@ export default {
   computed: {
     fetchID() {
       return this.$props.id;
-    }
+    },
   },
   data () {
     return {

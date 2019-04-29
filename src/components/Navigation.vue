@@ -2,6 +2,7 @@
   <v-navigation-drawer
         v-model="show"
         absolute
+        temporary
       >
     <v-list>
       <v-list-tile 
