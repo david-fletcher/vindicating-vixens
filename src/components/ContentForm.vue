@@ -20,7 +20,7 @@
         <v-card-actions>
           <v-spacer/>
           <v-btn color="secondary" flat @click="cancelDialog">Cancel</v-btn>
-          <v-btn color="primary" @click="saveVixen">Submit</v-btn>
+          <v-btn color="secondary" @click="saveVixen">Submit</v-btn>
         </v-card-actions>
       </v-flex>
     </v-layout>

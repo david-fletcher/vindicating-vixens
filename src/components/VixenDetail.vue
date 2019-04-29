@@ -1,14 +1,11 @@
 <template>
   <v-container>
-    <v-layout align-center justify-center fill-height column>
+    <v-layout align-space-around justify-center fill-height column>
       <v-flex>
-        <h2>{{ vixen.name }}</h2>
+        <Hero :height="500" :image="vixen.image" :title="vixen.name" :subtitle="vixen.short_desc"/>
       </v-flex>
       <v-flex>
-        <p class="font-weight-light font-italic">{{ vixen.short_desc }}</p>
-      </v-flex>
-      <v-flex align-self-start>
-        <p class="">{{ vixen.long_desc }}</p>
+        <div class="body-2 font-weight-light">{{ vixen.long_desc }}</div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -16,12 +13,19 @@
 
 <script>
 import axios from 'axios';
+import Hero from './Hero';
 
 export default {
   name: 'VixenDetail',
+  components: { Hero },
   data() {
     return {
-      vixen: {}
+      vixen: {
+        image: 'hero-image.jpg',
+        name: '',
+        short_desc: '',
+        long_desc: ''
+      }
     }
   },
   mounted() {

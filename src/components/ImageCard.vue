@@ -6,11 +6,11 @@
       <v-img :src="require(`@/assets/${image}`)" 
               contain
       />
-      <v-card-title primary-title>
+      <v-card-title secondary-title>
         {{ image }}
       </v-card-title>
       <v-card-actions>
-        <v-btn color="primary" flat @click="deleteImage" :disabled="!isallowed">Delete</v-btn>
+        <v-btn color="secondary" flat @click="deleteImage" :disabled="!isallowed">Delete</v-btn>
       </v-card-actions>
     </v-card>
   </v-hover>

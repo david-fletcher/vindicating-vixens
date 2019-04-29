@@ -3,7 +3,7 @@
     <v-layout justify-center column>
       <v-toolbar class="elevation-1">
         <v-toolbar-title>Vixens</v-toolbar-title>
-        <v-btn color="primary" fab
+        <v-btn color="secondary" fab
                                small 
                                absolute 
                                bottom 
@@ -28,10 +28,10 @@
               @click="editVixen(props.item)"
           >{{ props.item.image }}</td>
           <td class="text-xs-left">
-            <v-btn icon 
-                   outline 
-                   small 
-                   color="primary"
+            <v-btn icon  
+                   outline
+                   small
+                   color="secondary"
                    @click="confirmDelete(props.item)"
             >
               <v-icon small>delete_outline</v-icon>

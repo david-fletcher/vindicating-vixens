@@ -6,7 +6,7 @@
     <v-card-actions>
       <v-spacer/>
       <v-btn color="secondary" flat @click="cancel">Cancel</v-btn>
-      <v-btn color="primary" @click="confirm">Confirm</v-btn>
+      <v-btn color="secondary" @click="confirm">Confirm</v-btn>
     </v-card-actions>
   </v-card>
 </template>

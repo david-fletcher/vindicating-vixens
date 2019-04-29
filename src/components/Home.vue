@@ -1,16 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
+    <Hero :image="'hero-image.jpg'" :title="title" :subtitle="subtitle"/>
     <v-layout row wrap>
-      <v-jumbotron color="primary" dark>
-        <v-container fill-height>
-          <v-layout align-center>
-            <v-flex text-xs-center>
-              <h3 class="display-4">Vindicating Vixens</h3>
-              <p class="display-1">A second-look at some controversial women in the Bible.</p>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-jumbotron>
       <v-flex
               xs12
               md6
@@ -30,16 +21,19 @@
 
 <script>
 import Card from './Card';
+import Hero from './Hero';
 import axios from 'axios';
 
 export default {
   name: 'Home',
   components: {
-    Card
+    Card, Hero
   },
   data() {
     return {
-      vixens: []
+      vixens: [],
+      title: 'VINDICATING VIXENS',
+      subtitle: 'taking a second look at biblical women'
     }
   },
   mounted() {

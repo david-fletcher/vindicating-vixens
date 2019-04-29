@@ -6,7 +6,7 @@
       <v-img :src="require(`@/assets/${image}`)" 
               contain
       />
-      <v-card-title primary-title>
+      <v-card-title secondary-title>
         <h3 class="display-2">{{ title }}</h3>
       </v-card-title>
       <v-card-text>
@@ -14,7 +14,7 @@
       </v-card-text>
       <v-card-actions>
         <router-link :to="`/vixens/${fetchID}`" tag="span">
-          <v-btn color="primary" flat>Read More</v-btn>
+          <v-btn color="secondary" flat>Read More</v-btn>
         </router-link>
       </v-card-actions>
     </v-card>
