@@ -4,16 +4,17 @@
     <v-content>
       <router-view/>
     </v-content>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import Toolbar from './components/Toolbar';
-import Hero from './components/Hero';
+import Footer from './components/Footer';
 
 export default {
   name: 'App',
-  components: { Hero, Toolbar },
+  components: { Footer, Toolbar },
   data () {
     return {
       //

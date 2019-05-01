@@ -4,8 +4,8 @@
     <v-layout row wrap>
       <v-flex
               xs12
-              md6
-              lg3
+              sm6
+              md3
               v-for="item in vixens"
               :key="item.id"
             >
