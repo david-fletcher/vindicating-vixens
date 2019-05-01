@@ -43,11 +43,12 @@ def get_vixens():
 def get_vixen(vid):
     result = db.query_db('select * from vixens where id = ?', (vid), one=True)
     if result:
+        paragraphs = result['long_desc'].split("\n")
         return jsonify({
             'id': result['id'],
             'name': result['name'],
             'short_desc': result['short_desc'],
-            'long_desc': result['long_desc'],
+            'paragraphs': paragraphs,
             'image': result['image']
         })
     else:

@@ -4,8 +4,11 @@
       <v-flex>
         <Hero :height="500" :image="vixen.image" :title="vixen.name" :subtitle="vixen.short_desc"/>
       </v-flex>
-      <v-flex>
-        <div class="body-2 font-weight-light">{{ vixen.long_desc }}</div>
+      <br />
+      <v-divider dark />
+      <v-flex v-for="(p, index) in vixen.paragraphs" :key="index">
+        <br />
+        <div class="paragraph">{{ p }}</div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -24,7 +27,7 @@ export default {
         image: 'hero-image.jpg',
         name: '',
         short_desc: '',
-        long_desc: ''
+        paragraphs: ['']
       }
     }
   },
@@ -39,3 +42,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .paragraph {
+    font-size: 115%;
+  }
+</style>
