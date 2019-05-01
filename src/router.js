@@ -11,9 +11,14 @@ const routes = [
   { path: '/images', component: ManageImages }
 ]
 
+/* eslint-disable */
 const router = new VueRouter({
   routes, // short for `routes: routes`
-  mode: "history"
-})
+  scrollBehavior(to, from, savePosition) {
+    // page scroll to top for all route navigations
+    return { x: 0, y: 0 }
+  },
+  mode: "history",
+});
 
 export default router;

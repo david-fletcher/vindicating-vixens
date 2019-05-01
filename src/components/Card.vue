@@ -7,14 +7,14 @@
               contain
       />
       <v-card-title secondary-title>
-        <h3 class="display-2">{{ title }}</h3>
+        <h3 class="display-1">{{ title }}</h3>
       </v-card-title>
-      <v-card-text>
+      <v-card-text class="headline font-weight-light">
         {{ text }}
       </v-card-text>
       <v-card-actions>
         <router-link :to="`/vixens/${fetchID}`" tag="span">
-          <v-btn color="secondary" flat>Read More</v-btn>
+          <v-btn :large="buttonSize" class="subheading" color="primary">Read More</v-btn>
         </router-link>
       </v-card-actions>
     </v-card>
@@ -46,6 +46,13 @@ export default {
     fetchID() {
       return this.$props.id;
     },
+    buttonSize() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+        case 'sm': return false;
+        default:   return true;
+      }
+    }
   },
   data () {
     return {

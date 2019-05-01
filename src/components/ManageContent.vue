@@ -3,7 +3,7 @@
     <v-layout justify-center column>
       <v-toolbar class="elevation-1">
         <v-toolbar-title>Vixens</v-toolbar-title>
-        <v-btn color="secondary" fab
+        <v-btn color="primary" fab
                                small 
                                absolute 
                                bottom 

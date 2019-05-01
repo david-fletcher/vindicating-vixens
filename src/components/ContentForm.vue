@@ -6,10 +6,10 @@
       </v-flex>
       <v-flex>
         <v-card-text>
-          <v-text-field v-validate="'required'" :label="'Name'" v-model="name"></v-text-field>
-          <v-textarea v-validate="'required'" :label="'Short Description'" v-model="short_desc"></v-textarea>
-          <v-textarea v-validate="'required'" :label="'Long Description'" v-model="long_desc"></v-textarea>
-          <v-text-field v-validate="'required'" :label="'Image'" v-model="image" readonly @click="chooseImage"></v-text-field>
+          <v-text-field v-validate="'required'" color="secondary" :label="'Name'" v-model="name"></v-text-field>
+          <v-textarea v-validate="'required'" color="secondary" :label="'Short Description'" v-model="short_desc"></v-textarea>
+          <v-textarea v-validate="'required'" color="secondary" :label="'Long Description'" v-model="long_desc"></v-textarea>
+          <v-text-field v-validate="'required'" color="secondary" :label="'Image'" v-model="image" readonly @click="chooseImage"></v-text-field>
           <form method="POST" ref="image_form">
             <input type="file" ref="file" name="file" @change="uploadImage" hidden/>
           </form>
@@ -19,8 +19,8 @@
       <v-flex>
         <v-card-actions>
           <v-spacer/>
-          <v-btn color="secondary" flat @click="cancelDialog">Cancel</v-btn>
-          <v-btn color="secondary" @click="saveVixen">Submit</v-btn>
+          <v-btn flat @click="cancelDialog">Cancel</v-btn>
+          <v-btn color="primary" @click="saveVixen">Submit</v-btn>
         </v-card-actions>
       </v-flex>
     </v-layout>
