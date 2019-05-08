@@ -1,15 +1,5 @@
 module.exports = {
-  // configureWebpack: {
-  //   module: {
-  //     rules: [
-  //       {
-  //         test: /\.(png|jpg|gif)$/i,
-  //         loader: 'url-loader'
-  //       }
-  //     ],
-  //   },
-  //   plugins: [
-
-  //   ],
-  // }
+  devServer: {
+    proxy: 'http://fletcher.cse.taylor.edu:5000/'
+  }
 }

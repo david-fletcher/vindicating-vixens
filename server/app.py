@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 # enable CORS
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 IMAGE_DIR = os.path.join(BASE_DIR, 'src/assets/')
