@@ -7,7 +7,7 @@ import VeeValidate from 'vee-validate'
 
 Vue.config.productionTip = false
 
-Vue.prototype.$base_url = "http://fletcher.cse.taylor.edu:5000"
+Vue.prototype.$base_url = "http://localhost:5000"
 
 Vue.use(VueRouter);
 Vue.use(VeeValidate);

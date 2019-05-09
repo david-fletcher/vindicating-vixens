@@ -1,11 +1,11 @@
 <template>
   <v-container fluid grid-list-md>
-    <Hero :image="'hero-image.jpg'" :title="title" :subtitle="subtitle"/>
+    <Hero :height="getHeight" :image="'hero-image.jpg'" :title="title" :subtitle="subtitle"/>
     <v-layout row wrap>
       <v-flex
               xs12
               sm6
-              md3
+              lg3
               v-for="item in vixens"
               :key="item.id"
             >
@@ -28,6 +28,15 @@ export default {
   name: 'Home',
   components: {
     Card, Hero
+  },
+  computed: {
+    getHeight() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+        case 'sm': return 400;
+        default: return 600;
+      }
+    }
   },
   data() {
     return {

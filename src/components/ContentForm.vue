@@ -92,7 +92,7 @@
               this.image = files[0].name;
             })
             .catch(err => {
-              console.error('ERROR SAVING IMAGE', err.response)
+              console.error('ERROR SAVING IMAGE', err)
             });
         }
       },

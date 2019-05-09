@@ -37,9 +37,6 @@ export default {
       switch(this.$vuetify.breakpoint.name) {
         case 'xs':
         case 'sm': return 'display-2'
-        case 'md':
-        case 'lg':
-        case 'xl': return 'display-4'
         default:   return 'display-4'
       }
     },
@@ -47,9 +44,6 @@ export default {
       switch(this.$vuetify.breakpoint.name) {
         case 'xs':
         case 'sm': return 'display-1'
-        case 'md':
-        case 'lg':
-        case 'xl': return 'display-2'
         default:   return 'display-2'
       }
     }

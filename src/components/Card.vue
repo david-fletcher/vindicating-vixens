@@ -5,6 +5,7 @@
     >
       <v-img :src="require(`@/assets/${image}`)" 
               contain
+              @error="imageError"
       />
       <v-card-title secondary-title>
         <h3 class="display-1">{{ title }}</h3>
@@ -56,7 +57,9 @@ export default {
   },
   data () {
     return {
-      //
+      imageError(err) {
+        console.error("IMAGE LOAD ERROR", err);
+      }
     }
   }
 }
