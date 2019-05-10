@@ -1,14 +1,14 @@
 <template>
-  <v-parallax 
+  <v-img 
     :height="height ? height : 700"
     :src="fetchImage">
     
-    <v-layout justify-center align-center column>
+    <v-layout justify-center align-center fill-height column>
       <div :class="titleTextSize" class="font-weight-black white--text text-xs-center">{{ title }}</div>
       <div :class="subtitleTextSize" class="font-italic white--text text-xs-center mb-3">{{ subtitle ? subtitle : ""}}</div>
     </v-layout>
 
-  </v-parallax>
+  </v-img>
 </template>
 
 <script>
