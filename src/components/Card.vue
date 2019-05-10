@@ -3,7 +3,7 @@
     <v-card tile slot-scope="{ hover }"
       :class="`elevation-${hover ? 12 : 2}`"
     >
-      <v-img :src="require(`@/assets/${image}`)" 
+      <v-img :src="fetchImage" 
               contain
               @error="imageError"
       />
@@ -53,6 +53,9 @@ export default {
         case 'sm': return false;
         default:   return true;
       }
+    },
+    fetchImage() {
+      return `${this.$base_url}/images/${this.image}`
     }
   },
   data () {

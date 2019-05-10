@@ -1,6 +1,6 @@
-from flask import Flask, jsonify, g, request
+from flask import Flask, jsonify, g, request, send_file
 from flask_cors import CORS
-import os, os.path
+import os, os.path, mimetypes
 
 import db
 
@@ -14,8 +14,8 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-IMAGE_DIR = os.path.join(BASE_DIR, 'src/assets/')
+BASE_DIR = os.path.dirname(__file__)
+IMAGE_DIR = os.path.join(BASE_DIR, 'images/')
 
 # database connection teardown
 @app.teardown_appcontext
@@ -98,6 +98,13 @@ def get_images():
 
     return jsonify(images)
 
+@app.route('/images/<filename>', methods=['GET'])
+def get_image(filename):
+    mime = mimetypes.guess_type(filename)[0]
+    image = os.path.join(IMAGE_DIR, filename)
+    try: return send_file(image, mime)
+    except: return "Image not found", 404
+
 @app.route('/images', methods=['POST'])
 def save_image():
     if request.files:
@@ -138,4 +145,4 @@ def file_exists(filename, dir):
     return file_exists
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host="0.0.0.0")

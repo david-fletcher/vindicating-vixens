@@ -3,7 +3,7 @@
     <v-card tile slot-scope="{ hover }"
       :class="`elevation-${hover ? 12 : 2}`"
     >
-      <v-img :src="require(`@/assets/${image}`)" 
+      <v-img :src="fetchImage" 
               contain
       />
       <v-card-title secondary-title>
@@ -37,6 +37,11 @@ export default {
   methods: {
     deleteImage() {
       this.$emit("delete", this.$props.image);
+    }
+  },
+  computed: {
+    fetchImage() {
+      return `${this.$base_url}/images/${this.image}`
     }
   }
 }

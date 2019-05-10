@@ -1,7 +1,7 @@
 <template>
   <v-parallax 
     :height="height ? height : 700"
-    :src="require(`@/assets/${image}`)">
+    :src="fetchImage">
     
     <v-layout justify-center align-center column>
       <div :class="titleTextSize" class="font-weight-black white--text text-xs-center">{{ title }}</div>
@@ -46,6 +46,9 @@ export default {
         case 'sm': return 'display-1'
         default:   return 'display-2'
       }
+    },
+    fetchImage() {
+      return `${this.$base_url}/images/${this.image}`
     }
   },
   data() {
