@@ -41,7 +41,7 @@ def get_vixens():
 
 @app.route('/vixens/<vid>', methods=['GET'])
 def get_vixen(vid):
-    result = db.query_db('select * from vixens where id = ?', (vid), one=True)
+    result = db.query_db('select * from vixens where id = ?', [vid], one=True)
     if result:
         paragraphs = result['long_desc'].split("\n")
         return jsonify({
