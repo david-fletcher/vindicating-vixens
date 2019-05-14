@@ -10,7 +10,7 @@ Vindicating Vixens is a small single-page application created for a class to sum
 
 python3 -m venv venv
 source ./venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 # needed for every re-run of backend server
 # (pwd: vindicating-vixens)
