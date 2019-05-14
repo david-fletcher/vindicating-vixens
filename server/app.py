@@ -70,7 +70,7 @@ def update_vixen(vid):
 
 @app.route('/vixens/<vid>', methods=['DELETE'])
 def delete_vixen(vid):
-    args = (vid)
+    args = [vid]
     result = db.update_db('delete from vixens where id = ?', args)
     return jsonify({'id': result})
 
