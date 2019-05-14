@@ -1,29 +1,34 @@
 # vindicating-vixens
 
-## Project setup
+## About
+Vindicating Vixens is a small single-page application created for a class to summarize content from a book we throughout the semester. It uses Vue for the front-end, and Flask for the back-end. Data is served from an SQLite database. Docker-based containerization is included for easy deployment. Requires Nginx, Docker, and Python3.
+
+## Development
 ```
-yarn install
+# only do this once
+# (pwd: vindicating-vixens/server)
+
+python3 -m venv venv
+source ./venv/bin/activate
+pip install -r requirements.txt
+
+# needed for every re-run of backend server
+# (pwd: vindicating-vixens)
+
+source ./run-backend.sh
 ```
 
-### Compiles and hot-reloads for development
+## Production
 ```
-yarn run serve
-```
+# build the front end
+# (pwd: vindicating-vixens)
+docker build . -t vindicating-vixens
+docker run -d -p 8080:80 vindicating-vixens
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+#build the back end
+# (pwd: vindicating-vixens/server)
+docker build . -t vindicating-api
+docker run -d -p 5000:5000 vindicating-api
 
-### Run your tests
+# site is hosted at <ip address of machine>:8080
 ```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
